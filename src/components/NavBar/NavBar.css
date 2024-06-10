@@ -1,0 +1,97 @@
+.NavBar {
+  background-color: var(--main-bg-color);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  .NavBar__title {
+    font-weight: bold;
+
+    span {
+      color: var(--main-color);
+    }
+  }
+
+  .NavBar__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+
+  .NavBar__links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    @media (max-width: 992px) {
+      background-color: var(--main-bg-color);
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      height: fit-content;
+      flex-direction: column;
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: 0.3s;
+      gap: 5px;
+      padding: 10px;
+    }
+
+    &.open {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .NavBar__link {
+    color: var(--main-p-color);
+    padding: 15px 20px;
+    font-size: 18px;
+    position: relative;
+
+    &.active,
+    &:hover {
+      color: var(--main-color);
+      transform: scale(1.2);
+    }
+  }
+
+  .NavBar__icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    @media (max-width: 992px) {
+      margin-left: auto;
+    }
+  }
+
+  .NavBar__icon {
+    cursor: pointer;
+    font-size: 26px;
+    position: relative;
+
+    @media (max-width: 992px) {
+      font-size: 22px;
+    }
+
+    .NavBar__icon-quantity {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--main-color);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 0px 7px;
+      border-radius: 25px;
+    }
+  }
+}

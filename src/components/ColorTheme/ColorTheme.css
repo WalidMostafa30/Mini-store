@@ -1,0 +1,24 @@
+.ColorTheme__colors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 250px;
+}
+
+.ColorTheme__color {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  cursor: pointer;
+  filter: opacity(0.5);
+
+  &.active {
+    transform: scale(1.1);
+    border: 1px solid var(--main-text-color);
+    filter: opacity(1);
+    box-shadow: -2px 2px 8px -1px black;
+  }
+}
