@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import "./BarsMenu.css"
 
-const BarsMenu = ({onClick,className}) => {
+const BarsMenu = ({onClick,status}) => {
   return (
     <div
       onClick={onClick}
-      className={className ? "BarsMenu open" : "BarsMenu"}
+      className={status ? "BarsMenu open" : "BarsMenu"}
     >
       <span></span>
       <span></span>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./ColorTheme.css";
-import { setColor } from "../../rtk/colorSlice";
+import { setColor } from "../../store/colorSlice";
 
 const ColorTheme = () => {
   const themeColor = useSelector((state) => state.color);

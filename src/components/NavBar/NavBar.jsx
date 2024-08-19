@@ -1,34 +1,28 @@
 import "./NavBar.css";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faHeart,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BarsMenu from "../BarsMenu/BarsMenu";
 import { Container } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import SideCart from "../sideCart/sideCart.jsx";
-import Search from "../Search/Search.jsx";
+import {
+  toggleNav,
+  toggleSearch,
+  toggleSideCart,
+} from "../../store/showModalsSlice.js";
 
 export default function NavBar() {
-  const [showSideCart, setShowSideCart] = useState(false);
-
-  const [showNav, setShowNav] = useState(false);
-
-  const [showSearch, setShowSearch] = useState(false);
-
-  const handleSideCart = () => setShowSideCart(!showSideCart);
-
-  const handleNav = () => setShowNav(!showNav);
-
-  const handleSearch = () => setShowSearch(!showSearch);
-
   const cart = useSelector((state) => state.cart);
 
   const favourite = useSelector((state) => state.favourite);
+
+  const { nav } = useSelector((state) => state.modals);
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -37,10 +31,7 @@ export default function NavBar() {
           <h1 className="NavBar__title">
             Mini<span>Store</span>
           </h1>
-          <div
-            className={showNav ? "NavBar__links open" : "NavBar__links"}
-            onClick={handleNav}
-          >
+          <div className={nav ? "NavBar__links open" : "NavBar__links"}>
             <NavLink to={"/"} className="NavBar__link">
               Home
             </NavLink>
@@ -53,7 +44,10 @@ export default function NavBar() {
           </div>
 
           <div className="NavBar__icons">
-            <div className="NavBar__icon" onClick={handleSearch}>
+            <div
+              className="NavBar__icon"
+              onClick={() => dispatch(toggleSearch())}
+            >
               <FontAwesomeIcon icon={faSearch} />
             </div>
 
@@ -66,7 +60,10 @@ export default function NavBar() {
               )}
             </Link>
 
-            <div className="NavBar__icon" onClick={handleSideCart}>
+            <div
+              className="NavBar__icon"
+              onClick={() => dispatch(toggleSideCart())}
+            >
               <FontAwesomeIcon icon={faCartShopping} />
               {cart.length > 0 && (
                 <span className="NavBar__icon-quantity">
@@ -75,12 +72,10 @@ export default function NavBar() {
               )}
             </div>
 
-            <BarsMenu onClick={handleNav} className={showNav} />
+            <BarsMenu onClick={() => dispatch(toggleNav())} status={nav} />
           </div>
         </Container>
       </div>
-      <SideCart showSideCart={showSideCart} handleSideCart={handleSideCart} />
-      <Search handleSearch={handleSearch} showSearch={showSearch} />
     </>
   );
 }

@@ -4,7 +4,7 @@ import {
   addToCart,
   decressquantity,
   removeFromCart,
-} from "../../rtk/cartSlice";
+} from "../../store/cartSlice";
 import "./CartProducts.css";
 
 const CartProducts = () => {

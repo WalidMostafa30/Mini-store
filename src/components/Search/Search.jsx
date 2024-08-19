@@ -1,11 +1,13 @@
-/* eslint-disable react/prop-types */
 import { Container } from "react-bootstrap";
 import "./Search.css";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toggleSearch } from "../../store/showModalsSlice";
 
-const Search = ({ handleSearch, showSearch }) => {
+const Search = () => {
+  const { search } = useSelector((state) => state.modals);
+  const dispatch = useDispatch();
   const mainData = useSelector((state) => state.mainData);
 
   const [Products, setProducts] = useState([]);
@@ -36,14 +38,17 @@ const Search = ({ handleSearch, showSearch }) => {
   };
 
   const handleChooseProduct = () => {
-    handleSearch();
+    dispatch(toggleSearch());
     setInput("");
     setProducts([]);
   };
 
   return (
-    <div className={showSearch ? "Search active" : "Search"}>
-      <button className="Search__close-btn" onClick={handleSearch}>
+    <div className={search ? "Search active" : "Search"}>
+      <button
+        className="Search__close-btn"
+        onClick={() => dispatch(toggleSearch())}
+      >
         X
       </button>
 

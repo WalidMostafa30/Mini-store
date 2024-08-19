@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./CartDetails.css";
-import { clearCart } from "../../rtk/cartSlice";
+import { clearCart } from "../../store/cartSlice";
 import { Table } from "react-bootstrap";
 
 const CartDetails = () => {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Setting.css";
 import { useEffect, useState } from "react";
 import DarkModeCheckBox from "../DarkModeCheckBox/DarkModeCheckBox";
-import { toggleDarkMode } from "../../rtk/darkModeSlice";
+import { toggleDarkMode } from "../../store/darkModeSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import ColorTheme from "../ColorTheme/ColorTheme";
@@ -34,11 +34,11 @@ const Setting = () => {
         <FontAwesomeIcon icon={faGear} />
       </button>
 
-        <h5 className="Setting__title">{darkMode ? "Light" : "Dark"} Mode</h5>
-        <DarkModeCheckBox onClick={() => dispatch(toggleDarkMode())} />
+      <h5 className="Setting__title">{darkMode ? "Light" : "Dark"} Mode</h5>
+      <DarkModeCheckBox onClick={() => dispatch(toggleDarkMode())} />
 
-        <h5 className="Setting__title">Color Theme</h5>
-        <ColorTheme />
+      <h5 className="Setting__title">Color Theme</h5>
+      <ColorTheme />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import dataSlice from "./dataSlice";
 import darkModeSlice from "./darkModeSlice";
 import favouriteSlice from "./favouriteSlice";
 import colorSlice from "./colorSlice";
+import showModalsSlice from "./showModalsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     cart: cartSlice,
     dark: darkModeSlice,
     favourite: favouriteSlice,
-    color: colorSlice
+    color: colorSlice,
+    modals: showModalsSlice,
   },
 });

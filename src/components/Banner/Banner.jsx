@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <article className="Banner">
-      <img src={bannerImg} alt="Banner" />
+      <img
+        src={bannerImg}
+        alt="Banner"
+        className="w-100 h-100 object-fit-cover"
+      />
 
       <div className="Banner__content">
-        <p>repair Services</p>
+        <p className="text-light">repair Services</p>
 
         <h1>
           Up to <span>70% off</span> _ All t-shirts

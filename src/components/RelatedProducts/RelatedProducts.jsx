@@ -18,7 +18,6 @@ const RelatedProducts = ({ product }) => {
       (pro) => pro.catPrefix === product.catPrefix && pro.id !== product.id
     );
     setRelProduct(filterProducts);
-    // console.log(product.images[1]);
   }, [product, mainData]);
 
   return (

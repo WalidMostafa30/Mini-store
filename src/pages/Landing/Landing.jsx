@@ -7,11 +7,13 @@ const Landing = () => {
   return (
     <article className="Landing">
       <Container className="Landing__container">
-        <div className="Landing__group">
-          <p className="Landing__welcome">welcome to</p>
+        <div className="text-center">
+          <p className="Landing__welcome fs-2">welcome to</p>
+
           <h1 className="Landing__title">
             Mini<span>Store</span>
           </h1>
+
           <Link to={"categories"} className="Landing__btn main-btn">
             Shop Now
           </Link>

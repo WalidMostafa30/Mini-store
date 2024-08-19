@@ -2,10 +2,10 @@ import "./Favourite.css";
 import { Container } from "react-bootstrap";
 import GlobalTitle from "../../components/GlobalTitle/GlobalTitle";
 import { useDispatch, useSelector } from "react-redux";
-import Product from "../../components/product/Product";
 import Message from "../../components/Message/Message";
 import imgFav from "../../assets/images/Favourite.webp";
-import { clearFav } from "../../rtk/favouriteSlice";
+import { clearFav } from "../../store/favouriteSlice";
+import ProductsItms from "../../components/ProductsItms/ProductsItms";
 
 const Favourite = () => {
   const Favourite = useSelector((state) => state.favourite);
@@ -23,15 +23,7 @@ const Favourite = () => {
             </button>
           </div>
 
-          <div className="Favourite__products">
-            {Favourite.map((pro) => {
-              return (
-                <div className="Favourite__product" key={pro.id}>
-                  <Product pro={pro} />
-                </div>
-              );
-            })}
-          </div>
+          <ProductsItms products={Favourite} />
         </Container>
       ) : (
         <Message msg={"No Favourites Yet... Add Some"} msgImg={imgFav} />

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { addToCart } from "../../rtk/cartSlice";
+import { addToCart } from "../../store/cartSlice";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 
 const ProductDetails = () => {
@@ -24,7 +24,6 @@ const ProductDetails = () => {
   useEffect(() => {
     const filterProduct = mainData.products.find((pro) => pro.id == id);
     setProduct(filterProduct);
-    // console.log(product.images[1]);
   }, [id, mainData]);
 
   return (

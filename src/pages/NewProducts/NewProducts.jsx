@@ -1,10 +1,10 @@
 import "./NewProducts.css";
 import GlobalTitle from "../../components/GlobalTitle/GlobalTitle";
-import Product from "../../components/product/Product";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import ProductsItms from "../../components/ProductsItms/ProductsItms";
 
 export default function NewProducts() {
   const [products, setProducts] = useState([]);
@@ -16,18 +16,17 @@ export default function NewProducts() {
   }, [mainData]);
 
   return (
-    <section className="NewProducts">
+    <section className="NewProducts d-flex flex-column">
       <GlobalTitle title={"New Products"} />
+
       <Container className="NewProducts__container">
-        {products.map((product) => {
-          return (
-            <div className="NewProducts__product" key={product.id}>
-              <Product pro={product} />
-            </div>
-          );
-        })}
+        <ProductsItms products={products} />
       </Container>
-      <Link className="NewProducts__more main-btn" to={"categories"}>
+
+      <Link
+        className="NewProducts__more main-btn m-auto mt-4"
+        to={"categories"}
+      >
         {"Show More >>"}
       </Link>
     </section>

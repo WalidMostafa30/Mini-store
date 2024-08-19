@@ -4,9 +4,9 @@ import { Container } from "react-bootstrap";
 import GlobalTitle from "../../components/GlobalTitle/GlobalTitle";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Product from "../../components/product/Product";
 import Message from "../../components/Message/Message";
 import errImg from "../../assets/images/Oops!.webp";
+import ProductsItms from "../../components/ProductsItms/ProductsItms";
 
 const Products = () => {
   const { prefix } = useParams();
@@ -23,19 +23,13 @@ const Products = () => {
     <section className="Products">
       <GlobalTitle title={"Products"} />
 
-      {products.length !== 0 ? (
-        <Container className="Products__container">
-          {products.map((pro) => {
-            return (
-              <div className="Products__product" key={pro.id}>
-                <Product pro={pro} />
-              </div>
-            );
-          })}
-        </Container>
-      ) : (
-        <Message msg={"Products Not Found"} msgImg={errImg} />
-      )}
+      <Container className="Products__container">
+        {products.length !== 0 ? (
+          <ProductsItms products={products} />
+        ) : (
+          <Message msg={"Products Not Found"} msgImg={errImg} />
+        )}
+      </Container>
     </section>
   );
 };

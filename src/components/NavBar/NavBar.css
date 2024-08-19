@@ -1,6 +1,6 @@
 .NavBar {
   background-color: var(--main-bg-color);
-  position: fixed;
+  position: sticky;
   width: 100%;
   top: 0;
   left: 0;
@@ -19,7 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
+    height: var(--nav-height);
   }
 
   .NavBar__links {
@@ -54,6 +54,7 @@
     padding: 15px 20px;
     font-size: 18px;
     position: relative;
+    transition: 0.3s;
 
     &.active,
     &:hover {
