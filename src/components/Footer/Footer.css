@@ -1,5 +1,6 @@
 .Footer {
   background-color: var(--main-bg-color);
+  border-top: 1px solid var(--main-color);
 
   .Footer__Title {
     text-align: center;
@@ -19,7 +20,7 @@
   .Footer__follow {
     a {
       font-size: 40px;
-      
+
       path {
         color: var(--main-p-color);
         transition: 0.3s;
@@ -38,7 +39,6 @@
     cursor: pointer;
     transition: 0.3s;
     font-size: 22px;
-    
 
     &:hover {
       color: var(--main-color);

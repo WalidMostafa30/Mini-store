@@ -4,7 +4,7 @@ import { clearCart } from "../../store/cartSlice";
 import { Table } from "react-bootstrap";
 
 const CartDetails = () => {
-  const cart = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.dark);
 
@@ -20,7 +20,7 @@ const CartDetails = () => {
 
   return (
     <div className="CartDetails">
-      <Table striped bordered hover variant={darkMode && "dark"}>
+      <Table striped bordered hover variant={darkMode ? "dark" : ""}>
         <tbody>
           <tr>
             <td>Total Product</td>
@@ -38,7 +38,7 @@ const CartDetails = () => {
       </Table>
 
       <button
-        className="main-btn main-btn--danger"
+        className="main-btn main-btn--danger py-1 px-3 fs-3"
         onClick={() => dispatch(clearCart())}
       >
         Clear Cart

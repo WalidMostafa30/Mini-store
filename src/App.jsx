@@ -1,18 +1,16 @@
-import NavBar from "./components/NavBar/NavBar";
+import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { Outlet } from "react-router-dom";
 import Setting from "./components/Setting/Setting";
-import SideCart from "./components/sideCart/sideCart";
 import Search from "./components/Search/Search";
 
 function App() {
   return (
     <main>
-      <NavBar />
+      <Header />
       <Outlet />
       <Footer />
       <Setting />
-      <SideCart />
       <Search />
     </main>
   );

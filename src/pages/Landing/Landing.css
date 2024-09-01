@@ -2,7 +2,7 @@
   background-color: var(--main-color2);
 
   .Landing__container {
-    height: calc(100dvh - var(--nav-height));
+    height: calc(100dvh - (var(--nav-height) * 2));
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -1,41 +1,48 @@
 /* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
-import "./Setting.css";
 import { useEffect, useState } from "react";
-import DarkModeCheckBox from "../DarkModeCheckBox/DarkModeCheckBox";
-import { toggleDarkMode } from "../../store/darkModeSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import DarkModeCheckBox from "../DarkModeCheckBox/DarkModeCheckBox";
 import ColorTheme from "../ColorTheme/ColorTheme";
+import { toggleDarkMode } from "../../store/darkModeSlice";
+import "./Setting.css";
 
 const Setting = () => {
-  const [opensetting, setOpensetting] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-
   const themeColor = useSelector((state) => state.color);
-
-  const darkMode = useSelector((state) => state.dark);
+  const isDarkMode = useSelector((state) => state.dark);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--main-color", themeColor);
 
-    darkMode
-      ? document.body.classList.add("dark")
-      : document.body.classList.remove("dark");
-  }, [themeColor, darkMode]);
+    if (isDarkMode) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [themeColor, isDarkMode]);
+
+  const handleToggleSettings = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleToggleDarkMode = () => {
+    dispatch(toggleDarkMode());
+  };
 
   return (
-    <div className={opensetting ? "Setting open" : "Setting"}>
+    <div className={`Setting ${isOpen ? "open" : ""}`}>
       <button
-        className={opensetting ? "Setting__btn active" : "Setting__btn"}
-        onClick={() => setOpensetting(!opensetting)}
+        className={`Setting__btn ${isOpen ? "active" : ""}`}
+        onClick={handleToggleSettings}
       >
         <FontAwesomeIcon icon={faGear} />
       </button>
 
-      <h5 className="Setting__title">{darkMode ? "Light" : "Dark"} Mode</h5>
-      <DarkModeCheckBox onClick={() => dispatch(toggleDarkMode())} />
+      <h5 className="Setting__title">{isDarkMode ? "Light" : "Dark"} Mode</h5>
+      <DarkModeCheckBox onClick={handleToggleDarkMode} />
 
       <h5 className="Setting__title">Color Theme</h5>
       <ColorTheme />

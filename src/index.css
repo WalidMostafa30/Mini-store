@@ -13,7 +13,7 @@
   --main-text-color: black;
   --main-p-color: #757575;
   --main-red-color: #be1111;
-  --nav-height: 70px;
+  --nav-height: 60px;
 }
 
 .dark {
@@ -52,10 +52,8 @@ i {
   background-color: var(--main-color);
   border: 2px solid var(--main-color);
   color: white;
-  padding: 10px 20px;
-  font-size: 26px;
   cursor: pointer;
-  width: fit-content;
+  border-radius: 5px;
   transition: 0.3s;
   
   path {
@@ -70,11 +68,6 @@ i {
     path {
       color: var(--main-color);
     }
-  }
-
-  @media (max-width: 768px) {
-    padding: 7px 15px;
-    font-size: 20px;
   }
 
   &.main-btn--light {
@@ -115,5 +108,5 @@ i {
 }
 
 section {
-  padding-bottom: 80px;
+  padding-bottom: 40px;
 }

@@ -14,7 +14,7 @@ const Landing = () => {
             Mini<span>Store</span>
           </h1>
 
-          <Link to={"categories"} className="Landing__btn main-btn">
+          <Link to={"categories"} className="Landing__btn main-btn py-3 px-4 fs-3">
             Shop Now
           </Link>
         </div>

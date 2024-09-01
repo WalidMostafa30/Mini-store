@@ -5,20 +5,23 @@ import GlobalTitle from "../GlobalTitle/GlobalTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Mousewheel } from "swiper/modules";
 import Product from "../product/Product";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SiwperSlideBtn from "../SiwperSlideBtn/SiwperSlideBtn";
+import {
+  cleanRelatedProducts,
+  getRelatedProducts,
+} from "../../store/relatedProductsSlice";
 
 const RelatedProducts = ({ product }) => {
-  const [relProducts, setRelProduct] = useState([]);
-  const mainData = useSelector((state) => state.mainData);
+  const { relatedProducts } = useSelector((state) => state.relatedProducts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const filterProducts = mainData.products.filter(
-      (pro) => pro.catPrefix === product.catPrefix && pro.id !== product.id
-    );
-    setRelProduct(filterProducts);
-  }, [product, mainData]);
+    dispatch(getRelatedProducts(product));
+
+    return () => dispatch(cleanRelatedProducts());
+  }, [product, dispatch]);
 
   return (
     <article className="RelatedProducts">
@@ -50,7 +53,7 @@ const RelatedProducts = ({ product }) => {
           className="mySwiper"
         >
           <SiwperSlideBtn />
-          {relProducts.map((pro) => {
+          {relatedProducts.map((pro) => {
             return (
               <SwiperSlide key={pro.id}>
                 <Product pro={pro} />

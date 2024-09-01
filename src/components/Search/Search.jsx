@@ -4,86 +4,83 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toggleSearch } from "../../store/showModalsSlice";
+import { cleanSearch, getSearch } from "../../store/searchSlice";
 
 const Search = () => {
   const { search } = useSelector((state) => state.modals);
+  const { searchData, msg } = useSelector((state) => state.search);
   const dispatch = useDispatch();
-  const mainData = useSelector((state) => state.mainData);
-
-  const [Products, setProducts] = useState([]);
 
   const [input, setInput] = useState("");
 
-  const [selectedOption, setSelectedOption] = useState("category");
-
-  const handleCheckboxChange = (event) => {
-    const { name } = event.target;
-    setSelectedOption(name);
-    setInput("");
-    setProducts([]);
-  };
+  const [selectedOption, setSelectedOption] = useState("categories");
 
   const onChangeSearch = (e) => {
-    setInput(e.target.value);
+    const { value } = e.target;
+    setInput(value);
+    dispatch(getSearch({ selectedOption, title: value }));
+  };
 
-    const filterData = mainData[selectedOption].filter((data) =>
-      data.title.toUpperCase().includes(e.target.value.trim().toUpperCase())
-    );
-
-    if (e.target.value.trim().length !== 0) {
-      setProducts(filterData);
-    } else {
-      setProducts([]);
-    }
+  const handleCheckboxChange = (e) => {
+    const { name } = e.target;
+    setSelectedOption(name);
+    setInput("");
+    dispatch(cleanSearch());
   };
 
   const handleChooseProduct = () => {
+    dispatch(cleanSearch());
     dispatch(toggleSearch());
     setInput("");
-    setProducts([]);
+  };
+
+  const handleCloseSearch = () => {
+    dispatch(toggleSearch());
+    dispatch(cleanSearch());
+    setInput("");
   };
 
   return (
     <div className={search ? "Search active" : "Search"}>
-      <button
-        className="Search__close-btn"
-        onClick={() => dispatch(toggleSearch())}
-      >
+      <button className="Search__close-btn" onClick={handleCloseSearch}>
         X
       </button>
 
       <div className="Search__checkBox">
         <h5>Choose what you want to search for?</h5>
-        <label
-          className={
-            selectedOption === "category" ? "main-btn checked" : "main-btn"
-          }
-        >
-          <input
-            type="checkbox"
-            name="category"
-            onChange={handleCheckboxChange}
-          />
-          Category
-        </label>{" "}
-        <b>OR</b>{" "}
-        <label
-          className={
-            selectedOption === "main-btn products" ? "checked" : "main-btn"
-          }
-        >
-          <input
-            type="checkbox"
-            name="products"
-            onChange={handleCheckboxChange}
-          />
-          Product
-        </label>
+
+        <div className="d-flex align-items-center gap-3 justify-content-center">
+          <label
+            className={
+              selectedOption === "categories" ? "main-btn checked" : "main-btn"
+            }
+          >
+            <input
+              type="checkbox"
+              name="categories"
+              onChange={handleCheckboxChange}
+            />
+            Categories
+          </label>
+          <b>OR</b>
+          <label
+            className={
+              selectedOption === "products" ? "main-btn checked" : "main-btn"
+            }
+          >
+            <input
+              type="checkbox"
+              name="products"
+              onChange={handleCheckboxChange}
+            />
+            Product
+          </label>
+        </div>
       </div>
 
       <Container className="Search__container">
         <input
-          type="search"
+          type="text"
           placeholder="Search.."
           className="Search__input"
           value={input}
@@ -91,13 +88,15 @@ const Search = () => {
         />
 
         <div className="Search__result">
-          {Products &&
-            Products.map((pro) => {
+          {msg ? (
+            <h1 className="text-center mt-5">{msg}</h1>
+          ) : (
+            searchData.map((pro) => {
               return (
                 <Link
                   key={pro.id}
                   to={
-                    selectedOption === "category"
+                    selectedOption === "categories"
                       ? `/categories/products/${pro.prefix}`
                       : `/categories/products/${pro.catPrefix}/${pro.id}`
                   }
@@ -107,7 +106,7 @@ const Search = () => {
                   <img
                     className="Search__item__img"
                     src={
-                      selectedOption === "category"
+                      selectedOption === "categories"
                         ? pro.img
                         : pro.images && pro.images[0]
                     }
@@ -116,7 +115,8 @@ const Search = () => {
                   <h3 className="Search__item__title">{pro.title}</h3>
                 </Link>
               );
-            })}
+            })
+          )}
         </div>
       </Container>
     </div>

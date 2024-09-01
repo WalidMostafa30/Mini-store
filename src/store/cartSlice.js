@@ -1,56 +1,112 @@
 import { createSlice } from "@reduxjs/toolkit";
+import data from "../assets/data/data.json";
 
-const miniStoreCart = localStorage.getItem("miniStoreCart")
-  ? JSON.parse(localStorage.getItem("miniStoreCart"))
+const miniStoreCartLS = localStorage.getItem("miniStoreCartLS")
+  ? JSON.parse(localStorage.getItem("miniStoreCartLS"))
   : [];
 
 const storeInLocalStorage = (data) => {
-  localStorage.setItem("miniStoreCart", JSON.stringify(data));
+  localStorage.setItem("miniStoreCartLS", JSON.stringify(data));
+};
+
+const initialState = {
+  cartNums: miniStoreCartLS,
+  cart: [],
 };
 
 export const cartSlice = createSlice({
-  name: "cartSlice",
-  initialState: miniStoreCart,
+  name: "cart",
+  initialState,
   reducers: {
     addToCart: (state, action) => {
-      const findProduct = state.find((item) => item.id === action.payload.id);
-      if (findProduct) {
-        findProduct.quantity++;
+      const { userId, proId } = action.payload;
+      const userCart = state.cartNums.find((user) => user.userId === userId);
+
+      if (userCart) {
+        const product = userCart.cart.find((item) => item.productId === proId);
+        if (product) {
+          product.quantity++;
+        } else {
+          userCart.cart.push({ productId: proId, quantity: 1 });
+        }
       } else {
-        const productclone = { ...action.payload, quantity: 1 };
-        state.push(productclone);
+        state.cartNums.push({
+          userId,
+          cart: [{ productId: proId, quantity: 1 }],
+        });
       }
-      storeInLocalStorage(state);
+      storeInLocalStorage(state.cartNums);
     },
 
-    decressquantity: (state, action) => {
-      const findProduct = state.find((item) => item.id === action.payload.id);
-      if (findProduct) {
-        if (findProduct.quantity > 1) {
-          findProduct.quantity--;
-        } else {
-          state = state.filter((item) => item.id !== action.payload.id);
-          storeInLocalStorage(state);
-          return state;
+    getCart: (state, action) => {
+      const userId = action.payload;
+      const userCart = state.cartNums.find((user) => user.userId === userId);
+
+      if (userCart) {
+        const userProductIds = userCart.cart.map((item) => item.productId);
+        state.cart = data.products
+          .filter((product) => userProductIds.includes(product.id))
+          .map((product) => ({
+            ...product,
+            quantity: userCart.cart.find(
+              (item) => item.productId === product.id
+            ).quantity,
+          }));
+      }
+    },
+
+    decreaseQuantity: (state, action) => {
+      const { userId, proId } = action.payload;
+      const userCart = state.cartNums.find((user) => user.userId === userId);
+
+      if (userCart) {
+        const product = userCart.cart.find((item) => item.productId === proId);
+
+        if (product) {
+          if (product.quantity > 1) {
+            product.quantity--;
+          } else {
+            userCart.cart = userCart.cart.filter(
+              (item) => item.productId !== proId
+            );
+            state.cart = state.cart.filter((product) => product.id !== proId);
+          }
         }
       }
-      storeInLocalStorage(state);
+      storeInLocalStorage(state.cartNums);
     },
 
     removeFromCart: (state, action) => {
-      state = state.filter((item) => item.id !== action.payload.id);
-      storeInLocalStorage(state);
-      return state;
+      const { userId, proId } = action.payload;
+      const userCart = state.cartNums.find((user) => user.userId === userId);
+
+      if (userCart) {
+        userCart.cart = userCart.cart.filter(
+          (item) => item.productId !== proId
+        );
+        state.cart = state.cart.filter((product) => product.id !== proId);
+      }
+      storeInLocalStorage(state.cartNums);
     },
 
     clearCart: (state) => {
-      state = [];
-      storeInLocalStorage(state);
-      return state;
+      state.cartNums = [];
+      state.cart = [];
+      storeInLocalStorage(state.cartNums);
+    },
+
+    cleanCart: (state) => {
+      state.cart = [];
     },
   },
 });
 
-export const { addToCart, removeFromCart, clearCart, decressquantity } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  getCart,
+  decreaseQuantity,
+  removeFromCart,
+  clearCart,
+  cleanCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

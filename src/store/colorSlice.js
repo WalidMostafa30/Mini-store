@@ -9,13 +9,13 @@ const colorInLocalStorage = (data) => {
 };
 
 export const colorSlice = createSlice({
-  name: "colorSlice",
+  name: "color",
   initialState,
   reducers: {
     setColor: (state, action) => {
-      state = action.payload;
-      colorInLocalStorage(state);
-      return state;
+      const newColor = action.payload;
+      colorInLocalStorage(newColor);
+      return newColor;
     },
   },
 });

@@ -11,9 +11,9 @@ export const darkModeSlice = createSlice({
   initialState: shopDarkMode,
   reducers: {
     toggleDarkMode: (state) => {
-      state = !state;
-      darkInLocalStorage(state);
-      return state;
+      const newState = !state;
+      darkInLocalStorage(newState);
+      return newState;
     },
   },
 });

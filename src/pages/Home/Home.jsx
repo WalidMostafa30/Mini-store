@@ -1,7 +1,7 @@
 import Banner from "../../components/Banner/Banner";
-import BestRate from "../BestRate/BestRate";
 import Landing from "../Landing/Landing";
-import NewProducts from "../NewProducts/NewProducts";
+import BestRate from "../FilterProducts/BestRate";
+import NewProducts from "../FilterProducts/NewProducts";
 import Services from "../Services/Service";
 import "./Home.css";
 

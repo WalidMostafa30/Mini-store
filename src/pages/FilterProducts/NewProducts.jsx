@@ -1,30 +1,35 @@
-import "./NewProducts.css";
+import "./FilterProducts.css";
 import GlobalTitle from "../../components/GlobalTitle/GlobalTitle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import ProductsItms from "../../components/ProductsItms/ProductsItms";
+import {
+  cleanNewProducts,
+  getNewProducts,
+} from "../../store/filterProductsSlice";
 
 export default function NewProducts() {
-  const [products, setProducts] = useState([]);
-  const mainData = useSelector((state) => state.mainData);
+  const { newProducts } = useSelector((state) => state.filterProducts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const filterData = mainData.products.filter((i) => i.new === true);
-    setProducts(filterData);
-  }, [mainData]);
+    dispatch(getNewProducts());
+
+    return () => dispatch(cleanNewProducts());
+  }, [dispatch]);
 
   return (
     <section className="NewProducts d-flex flex-column">
       <GlobalTitle title={"New Products"} />
 
       <Container className="NewProducts__container">
-        <ProductsItms products={products} />
+        <ProductsItms products={newProducts} />
       </Container>
 
       <Link
-        className="NewProducts__more main-btn m-auto mt-4"
+        className="BestRate__more main-btn m-auto mt-4 py-3 px-4 fs-3"
         to={"categories"}
       >
         {"Show More >>"}

@@ -1,5 +1,10 @@
 .Product {
+  background-color: var(--main-color2);
+  padding: 10px;
+  border-radius: 10px;
+
   .Product__img {
+    border-radius: 5px;
     position: relative;
     overflow: hidden;
     width: 100%;

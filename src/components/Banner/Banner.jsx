@@ -18,7 +18,10 @@ const Banner = () => {
           Up to <span>70% off</span> _ All t-shirts
         </h1>
 
-        <Link className="main-btn main-btn--light" to={"categories"}>
+        <Link
+          className="main-btn main-btn--light py-3 px-4 fs-3"
+          to={"categories"}
+        >
           Explore more
         </Link>
       </div>
