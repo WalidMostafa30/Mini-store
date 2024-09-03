@@ -16,7 +16,8 @@ const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-
+  const navigate = useNavigate()
+  
   const { productDetails } = useSelector((state) => state.productDetails);
 
   const addCartHandle = (product) => {
