@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./ProductDetails.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +20,11 @@ const ProductDetails = () => {
   const { productDetails } = useSelector((state) => state.productDetails);
 
   const addCartHandle = (product) => {
-    dispatch(addToCart({ userId: user.id, proId: product.id }));
+    if (user) {
+      dispatch(addToCart({ userId: user.id, proId: product.id }));
+    } else {
+      navigate("/login");
+    }
   };
 
   const [activeImg, setActiveImg] = useState(0);
